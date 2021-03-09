@@ -1,36 +1,59 @@
 package ua.kyiv.admissions.domain;
 
-import java.util.Map;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
+@Entity
+@Table(name = "users")
 public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	private String firstName;
-	private String surName;
+	private String surname;
 	private String email;
 	private String password;
+
+	@Transient
+	private String passwordConfirm;
+	
+	@Enumerated(EnumType.STRING)
 	private UserRole role;
-	private Faculty facultyName;
-	private Map<Subject, Integer> subjectsPoints;
 	
 	public User() {
 	}
-
-	public User(String firstName, String surName, String email, String password) {
-		this.firstName = firstName;
-		this.surName = surName;
-		this.email = email;
-		this.password = password;
-		this.role = UserRole.ADMIN;
+	
+	public User(User user) {
+		this.id = user.id;
+		this.firstName = user.firstName;
+		this.surname = user.surname;
+		this.email = user.email;
+		this.password = user.password;
+		this.role = user.role;
 	}
 
-	public User(String firstName, String surName, String email, String password, Faculty facultyName, Map<Subject, Integer> subjectsPoints) {
+	public User(String firstName, String surname, String email, String password, UserRole role) {
 		this.firstName = firstName;
-		this.surName = surName;
+		this.surname = surname;
 		this.email = email;
 		this.password = password;
-		this.facultyName = facultyName;
-		this.subjectsPoints = subjectsPoints;
-		this.role = UserRole.USER;
+		this.role = role;
+	}
+
+	public User(Long id, String firstName, String surname, String email, String password, UserRole role) {
+		this.id = id;
+		this.firstName = firstName;
+		this.surname = surname;
+		this.email = email;
+		this.password = password;
+		this.role = role;
 	}
 
 	public Long getId() {
@@ -49,12 +72,12 @@ public class User {
 		this.firstName = firstName;
 	}
 
-	public String getSurName() {
-		return surName;
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setSurName(String surName) {
-		this.surName = surName;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public String getEmail() {
@@ -72,6 +95,14 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+	
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
 
 	public UserRole getRole() {
 		return role;
@@ -79,22 +110,6 @@ public class User {
 
 	public void setRole(UserRole role) {
 		this.role = role;
-	}
-
-	public Faculty getFacultyName() {
-		return facultyName;
-	}
-
-	public void setFacultyName(Faculty facultyName) {
-		this.facultyName = facultyName;
-	}
-
-	public Map<Subject, Integer> getSubjectsPoints() {
-		return subjectsPoints;
-	}
-
-	public void setSubjectsPoints(Map<Subject, Integer> subjectsPoints) {
-		this.subjectsPoints = subjectsPoints;
 	}
 
 	@Override
@@ -124,8 +139,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", surName=" + surName + ", email=" + email
-				+ ", password=" + password + ", role=" + role + ", facultyName=" + facultyName + ", subjectsPoints="
-				+ subjectsPoints + "]";
+		return "User [id=" + id + ", firstName=" + firstName + ", surname=" + surname + ", email=" + email
+				+ ", password=" + password + ", role=" + role + "]";
 	}
 }
