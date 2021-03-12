@@ -21,7 +21,6 @@
 </head>
 <body>
 	<div class="container">
-
 		<c:if test="${pageContext.request.userPrincipal.name != null}">
 			<form id="logoutForm" method="POST" action="${contextPath}/logout">
 				<input type="hidden" name="${_csrf.parameterName}"
@@ -30,10 +29,28 @@
 
 			<h2>
 				Welcome ${pageContext.request.userPrincipal.name} | <button type="button" class="btn" onclick="document.forms['logoutForm'].submit()">Logout</button>
-
 			</h2>
-
 		</c:if>
+		
+		<div class="w3-container" style="display: flex">
+				<c:if test="${not empty faculties}">
+					<c:forEach items="${faculties}" var="currentFaculty">
+
+						<div class="w3-card-4" style="width: 20%; margin: 2%">
+							<img
+								src="https://www.wegagen.com/wp-content/themes/linstar23/assets/images/default-275x220.jpg"
+								alt="Faculty logo" style="width: 100%">
+							<div class="w3-container w3-center">
+								<h3>${currentFaculty.name}</h3>
+								<p>Necessary subjects for entry: ${currentFaculty.subjects}</p>
+							</div>
+							<a class="w3-button w3-block w3-dark-grey"
+								href="${contextPath}/registrationEntrant?facultyId=${currentFaculty.id}&email=${pageContext.request.userPrincipal.name}">
+								Register for the faculty</a>
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
 
 	</div>
 
