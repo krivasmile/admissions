@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import ua.kyiv.admissions.security.CustomUserDetailsService;
 
@@ -18,8 +19,15 @@ import ua.kyiv.admissions.security.CustomUserDetailsService;
 @EnableWebSecurity
 @ComponentScan(basePackageClasses = CustomUserDetailsService.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
+	
 	private UserDetailsService userDetailsService;
+	private AuthenticationSuccessHandler authenticationSuccessHandler;
+	
+	@Autowired
+	public WebSecurityConfig(UserDetailsService userDetailsService, AuthenticationSuccessHandler authenticationSuccessHandler) {
+		this.userDetailsService = userDetailsService;
+		this.authenticationSuccessHandler = authenticationSuccessHandler;
+	}
 
 	@Bean(name = "passwordEncoder")
 	public PasswordEncoder passwordEncoder() {
@@ -32,10 +40,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/home").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-		.anyRequest().permitAll().and().formLogin().loginPage("/login").defaultSuccessUrl("/home")
-		.usernameParameter("email").passwordParameter("password").and().logout()
-		.logoutSuccessUrl("/login?logout").and().exceptionHandling().accessDeniedPage("/403").and().csrf();
-
+		http
+			.authorizeRequests()
+			.antMatchers("/").permitAll()
+			.antMatchers("/css/**").permitAll()
+			.antMatchers("/home").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+			.antMatchers("/admin").access("hasRole('ROLE_ADMIN')")
+			.anyRequest()
+			.authenticated()//
+			.and()//
+			.formLogin()
+			.loginPage("/login").defaultSuccessUrl("/home")
+			.usernameParameter("email").passwordParameter("password")
+			.successHandler(authenticationSuccessHandler)
+			.permitAll()
+			.and()
+			.logout()
+			.logoutSuccessUrl("/login?logout")
+			.and()
+			.exceptionHandling()
+			.accessDeniedPage("/403")
+			.and().csrf();
 	}
 }

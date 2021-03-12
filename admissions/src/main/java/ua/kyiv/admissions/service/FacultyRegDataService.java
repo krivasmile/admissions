@@ -18,11 +18,11 @@ public class FacultyRegDataService {
 		facultyRegDataRepository.save(facultyRegData);
 	}
 	
-	public List<FacultyRegData> showAllRegisteredUsers(){
+	public List<FacultyRegData> showAllEntrants(){
 		return facultyRegDataRepository.findAll();
 	}
 	
-	public void deleteAllRegisteredUsers() {
+	public void deleteAllEntrants() {
 		facultyRegDataRepository.deleteAll();
 	}
 }

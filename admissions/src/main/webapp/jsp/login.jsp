@@ -11,7 +11,7 @@
 <head>
 <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
 <title>Sign in/ Sign up</title>
-<link rel="stylesheet" href="login.css" type="text/css">
+<link rel="stylesheet" href="css/login.css" type="text/css">
 </head>
 <body>
 	<div class="row">

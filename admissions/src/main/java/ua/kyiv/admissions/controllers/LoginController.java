@@ -1,8 +1,5 @@
 package ua.kyiv.admissions.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,31 +7,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ua.kyiv.admissions.domain.Faculties;
-import ua.kyiv.admissions.domain.Faculty;
-import ua.kyiv.admissions.domain.FacultyRegData;
-import ua.kyiv.admissions.domain.Subject;
 import ua.kyiv.admissions.domain.User;
-import ua.kyiv.admissions.domain.UserRole;
-import ua.kyiv.admissions.service.FacultyRegDataService;
 import ua.kyiv.admissions.service.FacultyService;
 import ua.kyiv.admissions.service.UserService;
 
 @Controller
-public class UserController {
+public class LoginController {
 	
 	@Autowired
 	private UserService userService;
 	
 	@Autowired
 	private FacultyService facultyService;
-	
-	@Autowired
-	private FacultyRegDataService facultyRegDataService;
 	
 	@GetMapping(value = { "/", "/login" })
 	public String login(Model model, String error, String logout) {
@@ -69,25 +55,5 @@ public class UserController {
 			ModelAndView map = new ModelAndView("home");
 			map.addObject("faculties", facultyService.getAllFaculties());
 		return map;
-	}
-	
-	@GetMapping(value="/registrationEntrant")
-	public ModelAndView registrationEntrant(@RequestParam("facultyId") Integer id, @RequestParam("email") String email) {
-		FacultyRegData frd = new FacultyRegData();
-		frd.setFaculty(facultyService.findById(id));
-		frd.setUser(userService.findByEmail(email));
-		ModelAndView map = new ModelAndView("registrationEntrant");
-		map.addObject("facultyRegData", frd);
-		return map;
-	}
-	
-	@PostMapping("/registrationEntrant")
-	public String addRegistration(@ModelAttribute("facultyRegData") FacultyRegData frd) {
-		Faculty faculty = facultyService.findById(frd.getFacultyId());
-		User user = userService.findByEmail(frd.getEmail());
-		frd.setFaculty(faculty);
-		frd.setUser(user);
-		facultyRegDataService.save(frd);
-		return "redirect:/home";
 	}
 }
