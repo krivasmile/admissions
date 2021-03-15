@@ -46,7 +46,7 @@
 					<th>First name</th>
 					<th>Last name</th>
 					<th>Email</th>
-					<th>Marks</th>
+					<th>Sum of Marks</th>
 				</tr>
 			</thead>
 			<tbody id="myTable">
@@ -57,7 +57,7 @@
 						<td>${currentRegistration.user.firstName}</td>
 						<td>${currentRegistration.user.surname}</td>
 						<td>${currentRegistration.user.email}</td>
-						<td>${currentRegistration.faculty.subjects}<br>${currentRegistration.marks}</td>
+						<td>${currentRegistration.marks.stream().sum()}</td>
 					</tr>
 				</c:forEach>
 

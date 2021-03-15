@@ -42,16 +42,6 @@ public class LoginController {
 
 	@GetMapping(value = "/home")
 	public ModelAndView welcome() {
-//			facultyRegDataService.deleteAllRegisteredUsers();
-//			facultyService.deleteAllFaculties();
-//			List<Subject> subjects = new ArrayList<>();
-//			for (int i = 0; i < Subject.values().length; i++) {
-//				subjects.add(Subject.values()[i]);
-//			}
-//			facultyService.save(new Faculty(Faculties.JAVA, subjects));
-//			facultyService.save(new Faculty(Faculties.PYTHON, subjects));
-//			facultyService.save(new Faculty(Faculties.ANDROID, subjects));
-			
 			ModelAndView map = new ModelAndView("home");
 			map.addObject("faculties", facultyService.getAllFaculties());
 		return map;

@@ -53,7 +53,6 @@ public class EntrantController {
 	
 	@GetMapping(value ="/admin")
 	public String showRegisteredEntrants(Model model) {
-		//new ModelAndView("showEntrants", "registeredEntrants", facultyRegDataService.showAllEntrants());
 		model.addAttribute("registeredEntrants", facultyRegDataService.showAllEntrants());
 		return "/admin";
 	}

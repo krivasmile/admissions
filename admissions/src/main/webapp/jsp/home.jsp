@@ -38,7 +38,7 @@
 
 						<div class="w3-card-4" style="width: 20%; margin: 2%">
 							<img
-								src="https://www.wegagen.com/wp-content/themes/linstar23/assets/images/default-275x220.jpg"
+								src="https://miro.medium.com/max/3000/1*YMFKP8e6kR9cbM3IKXBtLw.png"
 								alt="Faculty logo" style="width: 100%">
 							<div class="w3-container w3-center">
 								<h3>${currentFaculty.name}</h3>

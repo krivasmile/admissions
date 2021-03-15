@@ -14,8 +14,7 @@
 				modelAttribute="facultyRegData">
 				<table>
 					<tr>
-						<th>To register for the faculty you have to fill marks from
-							such subjects:</th>
+						<th>To register for the faculty fill the marks:</th>
 					</tr>
 
 					<c:forEach items="${facultyRegData.faculty.subjects}"
