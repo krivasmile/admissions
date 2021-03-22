@@ -7,37 +7,42 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Faculty Registration</title>
 </head>
 <body>
 	<form:form method="POST" action="${contextPath}/registrationEntrant"
-				modelAttribute="facultyRegData">
+				modelAttribute="facultyRegData" enctype="multipart/form-data">
 				<table>
+					<tr>
+						<th>Please, add your photo:</th>
+					</tr>
+					<tr>
+						<td><input type="file" name="image"></td>
+					</tr>
 					<tr>
 						<th>To register for the faculty fill the marks:</th>
 					</tr>
-
+					
 					<c:forEach items="${facultyRegData.faculty.subjects}"
 						var="currentSubject">
 						<tr>
-							<td><form:label path="marks">${currentSubject}</form:label></td>
-							<td><form:input path="marks" /></td>
+							<td>${currentSubject}</td>
+							<td><input type="number" name="marks"/></td>
 						</tr>
 					</c:forEach>
 
 					<tr>
-						<td><form:input type="hidden" path="facultyId"
-								value="${facultyRegData.faculty.id}" /></td>
-						<td><form:input type="hidden" path="email"
-								value="${facultyRegData.user.email}" /></td>
+						<td><input  type="hidden"  name="facultyId" value="${facultyRegData.faculty.id}"/></td>
+						<td><input  type="hidden" name="email" value="${facultyRegData.user.email}"/></td>
 					</tr>
 					<tr>
-						<td><input type="submit" value="Register" /></td>
+						<td><input  type="submit" value="Register"/></td>
 					</tr>
 
 				</table>
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
+
 			</form:form>
 </body>
 </html>

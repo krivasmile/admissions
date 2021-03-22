@@ -20,7 +20,7 @@ public class User {
 	private String surname;
 	private String email;
 	private String password;
-
+	
 	@Transient
 	private String passwordConfirm;
 	

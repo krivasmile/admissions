@@ -1,5 +1,8 @@
 package ua.kyiv.admissions.controllers;
 
+import java.io.IOException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import ua.kyiv.admissions.domain.Faculty;
@@ -22,7 +26,7 @@ public class EntrantController {
 	private FacultyService facultyService;
 	private UserService userService;
 	private FacultyRegDataService facultyRegDataService;
-	
+
 	@Autowired
 	public EntrantController(FacultyService facultyService, UserService userService,
 			FacultyRegDataService facultyRegDataService) {
@@ -31,29 +35,25 @@ public class EntrantController {
 		this.facultyRegDataService = facultyRegDataService;
 	}
 
-	@GetMapping(value="/registrationEntrant")
-	public ModelAndView registrationEntrant(@RequestParam("facultyId") Integer id, @RequestParam("email") String email) {
+	@ModelAttribute
+	public void addAttribute(Model model, @RequestParam("facultyId") Integer id, @RequestParam("email") String email) {
 		FacultyRegData frd = new FacultyRegData();
 		frd.setFaculty(facultyService.findById(id));
 		frd.setUser(userService.findByEmail(email));
-		ModelAndView map = new ModelAndView("registrationEntrant");
-		map.addObject("facultyRegData", frd);
-		return map;
+		model.addAttribute("facultyRegData", frd);
+	}
+
+	@GetMapping(value = "/registrationEntrant")
+	public String registrationEntrant() {
+		return "registrationEntrant";
 	}
 
 	@PostMapping("/registrationEntrant")
-	public String addRegistration(@ModelAttribute("facultyRegData") FacultyRegData frd) {
-		Faculty faculty = facultyService.findById(frd.getFacultyId());
-		User user = userService.findByEmail(frd.getEmail());
-		frd.setFaculty(faculty);
-		frd.setUser(user);
+	public String addRegistration(@RequestParam MultipartFile image, @RequestParam List<Integer> marks,
+			@ModelAttribute("facultyRegData") FacultyRegData frd) throws IOException {
+		frd.setBase64(image);
+		frd.setMarks(marks);
 		facultyRegDataService.save(frd);
 		return "redirect:/home";
-	}
-	
-	@GetMapping(value ="/admin")
-	public String showRegisteredEntrants(Model model) {
-		model.addAttribute("registeredEntrants", facultyRegDataService.showAllEntrants());
-		return "/admin";
 	}
 }

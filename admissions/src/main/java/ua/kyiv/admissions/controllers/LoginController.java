@@ -1,5 +1,7 @@
 package ua.kyiv.admissions.controllers;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,28 +18,36 @@ import ua.kyiv.admissions.service.UserService;
 @Controller
 public class LoginController {
 	
-	@Autowired
 	private UserService userService;
-	
-	@Autowired
 	private FacultyService facultyService;
 	
+	@Autowired
+	public LoginController(UserService userService, FacultyService facultyService) {
+		this.userService = userService;
+		this.facultyService = facultyService;
+	}
+
 	@GetMapping(value = { "/", "/login" })
 	public String login(Model model, String error, String logout) {
-		model.addAttribute("userForm", new User());
 		if (error != null)
 			model.addAttribute("error", "Your username and password is invalid.");
 		if (logout != null)
 			model.addAttribute("message", "You have been logged out successfully.");
 		return "login";
 	}
-
-	@PostMapping(value = { "/", "/login" })
-	public String registration(@ModelAttribute("userForm") User user, BindingResult bindingResult) {
+	
+	@GetMapping(value = "/registration")
+	public String registration(Model model) {
+		model.addAttribute("user", new User());
+		return "registration";
+	}
+	
+	@PostMapping(value = "/registration")
+	public String register(@ModelAttribute("user") User user, BindingResult bindingResult) throws IOException {
 		if (bindingResult.hasErrors())
-			return "/login";
+			return "/registration";
 		userService.save(user);
-		return "redirect:/home";
+		return "redirect:/login";
 	}
 
 	@GetMapping(value = "/home")

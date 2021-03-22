@@ -43,6 +43,7 @@
 			<thead>
 				<tr>
 					<th>Faculty</th>
+					<th>Photo</th>
 					<th>First name</th>
 					<th>Last name</th>
 					<th>Email</th>
@@ -54,6 +55,7 @@
 				<c:forEach items="${registeredEntrants}" var="currentRegistration">
 					<tr>
 						<td>${currentRegistration.faculty.name}</td>
+						<td><img src="data:image/png;base64, ${currentRegistration.base64}" width="90" height="60"></td>
 						<td>${currentRegistration.user.firstName}</td>
 						<td>${currentRegistration.user.surname}</td>
 						<td>${currentRegistration.user.email}</td>
