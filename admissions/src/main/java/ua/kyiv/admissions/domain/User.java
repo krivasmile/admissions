@@ -1,13 +1,19 @@
 package ua.kyiv.admissions.domain;
 
+import java.io.IOException;
+import java.util.Base64;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "users")
@@ -20,6 +26,9 @@ public class User {
 	private String surname;
 	private String email;
 	private String password;
+	
+	@Lob
+	private String imageBase64;
 	
 	@Transient
 	private String passwordConfirm;
@@ -110,6 +119,14 @@ public class User {
 
 	public void setRole(UserRole role) {
 		this.role = role;
+	}
+	
+	public String getImageBase64() {
+		return imageBase64;
+	}
+
+	public void setImageBase64(MultipartFile file) throws IOException {
+		this.imageBase64 = Base64.getEncoder().encodeToString(file.getBytes());
 	}
 
 	@Override

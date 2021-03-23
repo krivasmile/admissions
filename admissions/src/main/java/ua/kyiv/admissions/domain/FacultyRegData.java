@@ -31,8 +31,6 @@ public class FacultyRegData {
 	@ManyToOne()
 	@JoinColumn(name ="user_id", referencedColumnName = "id")
 	private User user;
-	@Lob
-	private String base64;
 	
 	@ElementCollection
 	private List<Integer> marks;
@@ -46,19 +44,17 @@ public class FacultyRegData {
 	public FacultyRegData() {
 	}
 
-	public FacultyRegData(Faculty faculty, User user, List<Integer> marks, MultipartFile file) throws IOException {
+	public FacultyRegData(Faculty faculty, User user, List<Integer> marks) throws IOException {
 		this.faculty = faculty;
 		this.user = user;
 		this.marks = marks;
-		this.base64 = Base64.getEncoder().encodeToString(file.getBytes());
 	}
 
-	public FacultyRegData(Integer id, Faculty faculty, User user, List<Integer> marks, MultipartFile file) throws IOException {
+	public FacultyRegData(Integer id, Faculty faculty, User user, List<Integer> marks) throws IOException {
 		this.id = id;
 		this.faculty = faculty;
 		this.user = user;
 		this.marks = marks;
-		this.base64 = Base64.getEncoder().encodeToString(file.getBytes());
 	}
 
 	public Integer getId() {
@@ -107,14 +103,6 @@ public class FacultyRegData {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getBase64() {
-		return base64;
-	}
-
-	public void setBase64(MultipartFile file) throws IOException {
-		this.base64 = Base64.getEncoder().encodeToString(file.getBytes());
 	}
 
 	@Override

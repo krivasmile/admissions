@@ -28,7 +28,14 @@
 			</form>
 
 			<h2>
-				Welcome ${pageContext.request.userPrincipal.name} | <button type="button" class="btn" onclick="document.forms['logoutForm'].submit()">Logout</button>
+				Welcome ${user.firstName}
+				<c:choose>
+				<c:when test="${user.imageBase64 != null}">
+				<img alt="" src="data:image/png;base64, ${user.imageBase64}" width="22" height="17">
+				</c:when>
+				</c:choose>
+				
+				 | <button type="button" class="btn" onclick="document.forms['logoutForm'].submit()">Logout</button>
 			</h2>
 		</c:if>
 		
@@ -42,7 +49,6 @@
 								alt="Faculty logo" style="width: 100%">
 							<div class="w3-container w3-center">
 								<h3>${currentFaculty.name}</h3>
-								<p>Necessary subjects for entry: ${currentFaculty.subjects}</p>
 							</div>
 							<a class="w3-button w3-block w3-dark-grey"
 								href="${contextPath}/registrationEntrant?facultyId=${currentFaculty.id}&email=${pageContext.request.userPrincipal.name}">

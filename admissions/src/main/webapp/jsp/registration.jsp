@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="container">
-						<form:form modelAttribute="user" method="POST"
+						<form:form modelAttribute="newUser" method="POST"
 							action="${contextPath}/registration" class="form-signin">
 
 							<spring:bind path="firstName">

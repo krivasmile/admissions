@@ -34,6 +34,8 @@ public class AdmissionsApplication {
 //		facultyService.save(new Faculty(Faculties.JAVA, subjects));
 //		facultyService.save(new Faculty(Faculties.PYTHON, subjects));
 //		facultyService.save(new Faculty(Faculties.ANDROID, subjects));
+//		facultyService.save(new Faculty(Faculties.GO, subjects));
+//		facultyService.save(new Faculty(Faculties.RUBY, subjects));
 	}
 
 }

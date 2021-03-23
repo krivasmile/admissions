@@ -1,8 +1,10 @@
 package ua.kyiv.admissions.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,12 +40,12 @@ public class LoginController {
 	
 	@GetMapping(value = "/registration")
 	public String registration(Model model) {
-		model.addAttribute("user", new User());
+		model.addAttribute("newUser", new User());
 		return "registration";
 	}
 	
 	@PostMapping(value = "/registration")
-	public String register(@ModelAttribute("user") User user, BindingResult bindingResult) throws IOException {
+	public String register(@ModelAttribute("newUser") User user, BindingResult bindingResult) throws IOException {
 		if (bindingResult.hasErrors())
 			return "/registration";
 		userService.save(user);
@@ -51,9 +53,10 @@ public class LoginController {
 	}
 
 	@GetMapping(value = "/home")
-	public ModelAndView welcome() {
+	public ModelAndView welcome(Principal principal) {
 			ModelAndView map = new ModelAndView("home");
 			map.addObject("faculties", facultyService.getAllFaculties());
+			map.addObject("user", userService.findByEmail(principal.getName()));
 		return map;
 	}
 }
