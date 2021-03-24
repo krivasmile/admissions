@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import ua.kyiv.admissions.domain.User;
@@ -18,13 +20,13 @@ import ua.kyiv.admissions.service.FacultyService;
 import ua.kyiv.admissions.service.UserService;
 
 @Controller
-public class LoginController {
+public class UserController {
 	
 	private UserService userService;
 	private FacultyService facultyService;
 	
 	@Autowired
-	public LoginController(UserService userService, FacultyService facultyService) {
+	public UserController(UserService userService, FacultyService facultyService) {
 		this.userService = userService;
 		this.facultyService = facultyService;
 	}
@@ -58,5 +60,11 @@ public class LoginController {
 			map.addObject("faculties", facultyService.getAllFaculties());
 			map.addObject("user", userService.findByEmail(principal.getName()));
 		return map;
+	}
+	
+	@PostMapping(value="/imageUpload")
+	public String imageUpload(@RequestParam MultipartFile image, Principal principal) throws IOException {
+		userService.setImage(userService.findByEmail(principal.getName()), image);
+		return "redirect:/home";
 	}
 }

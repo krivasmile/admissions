@@ -37,9 +37,10 @@
 			<h1>Registered Entrants</h1>
 		</div>
 
+		
 		<input class="form-control" id="myInput" type="text"
 			placeholder="Search.."> <br>
-		<table class="table table-bordered">
+		 <table class="table table-bordered">
 			<thead>
 				<tr>
 					<th>Faculty</th>
@@ -48,6 +49,7 @@
 					<th>Last name</th>
 					<th>Email</th>
 					<th>Sum of Marks</th>
+					<th>Enrolled</th>
 				</tr>
 			</thead>
 			<tbody id="myTable">
@@ -60,6 +62,7 @@
 						<td>${currentRegistration.user.surname}</td>
 						<td>${currentRegistration.user.email}</td>
 						<td>${currentRegistration.marks.stream().sum()}</td>
+						<td>${currentRegistration.isEnrolled}</td>
 					</tr>
 				</c:forEach>
 

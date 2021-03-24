@@ -1,8 +1,12 @@
 package ua.kyiv.admissions.service;
 
+import java.io.IOException;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import ua.kyiv.admissions.dao.UserRepository;
 import ua.kyiv.admissions.domain.User;
@@ -24,5 +28,11 @@ public class UserService {
 	
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email).get();
+	}
+	
+	public void setImage(User user, MultipartFile image) throws IOException {
+		User userForUpdate = userRepository.findById(user.getId()).get();
+		userForUpdate.setImageBase64(image);
+		userRepository.save(user);
 	}
 }

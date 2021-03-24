@@ -13,12 +13,17 @@
 	<form:form method="POST" action="${contextPath}/registrationEntrant"
 				modelAttribute="facultyRegData" enctype="multipart/form-data">
 				<table>
-					<tr>
-						<th>Please, add your photo:</th>
+				<c:choose>
+				<c:when test="${facultyRegData.user.imageBase64 != null}">
+				<img alt="" src="data:image/png;base64, ${facultyRegData.user.imageBase64}" width="100" height="70">
+				</c:when>
+				<c:otherwise>
+				<tr>
+					<th><img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"></th>
+						<th>You can add your photo on home page</th>
 					</tr>
-					<tr>
-						<td><input type="file" name="image"></td>
-					</tr>
+				</c:otherwise>
+				</c:choose>
 					<tr>
 						<th>To register for the faculty fill the marks:</th>
 					</tr>

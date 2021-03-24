@@ -48,23 +48,6 @@ public class User {
 		this.role = user.role;
 	}
 
-	public User(String firstName, String surname, String email, String password, UserRole role) {
-		this.firstName = firstName;
-		this.surname = surname;
-		this.email = email;
-		this.password = password;
-		this.role = role;
-	}
-
-	public User(Long id, String firstName, String surname, String email, String password, UserRole role) {
-		this.id = id;
-		this.firstName = firstName;
-		this.surname = surname;
-		this.email = email;
-		this.password = password;
-		this.role = role;
-	}
-
 	public Long getId() {
 		return id;
 	}

@@ -1,6 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
     
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -33,12 +33,19 @@
 				<c:when test="${user.imageBase64 != null}">
 				<img alt="" src="data:image/png;base64, ${user.imageBase64}" width="22" height="17">
 				</c:when>
+				<c:otherwise>
+				<form:form method="POST" action="${contextPath}/imageUpload" modelAttribute="user" enctype="multipart/form-data">
+				<p>Please, add your photo:</p>
+				<input type="file" name="image">
+				<input  type="submit" value="Upload"/>
+				</form:form>
+				</c:otherwise>
 				</c:choose>
 				
 				 | <button type="button" class="btn" onclick="document.forms['logoutForm'].submit()">Logout</button>
 			</h2>
 		</c:if>
-		
+		<hr>	
 		<div class="w3-container" style="display: flex">
 				<c:if test="${not empty faculties}">
 					<c:forEach items="${faculties}" var="currentFaculty">

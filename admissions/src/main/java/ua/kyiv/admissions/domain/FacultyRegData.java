@@ -1,21 +1,16 @@
 package ua.kyiv.admissions.domain;
 
-import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="faculty_reg_form")
@@ -35,26 +30,10 @@ public class FacultyRegData {
 	@ElementCollection
 	private List<Integer> marks;
 	
-	@Transient
-	private int facultyId;
-	
-	@Transient
-	private String email;
+	@Column(nullable = false, columnDefinition = "TINYINT(1)")
+	private boolean isEnrolled;
 	
 	public FacultyRegData() {
-	}
-
-	public FacultyRegData(Faculty faculty, User user, List<Integer> marks) throws IOException {
-		this.faculty = faculty;
-		this.user = user;
-		this.marks = marks;
-	}
-
-	public FacultyRegData(Integer id, Faculty faculty, User user, List<Integer> marks) throws IOException {
-		this.id = id;
-		this.faculty = faculty;
-		this.user = user;
-		this.marks = marks;
 	}
 
 	public Integer getId() {
@@ -88,26 +67,17 @@ public class FacultyRegData {
 	public void setMarks(List<Integer> marks) {
 		this.marks = marks;
 	}
-
-	public int getFacultyId() {
-		return facultyId;
+	
+	public boolean getIsEnrolled() {
+		return isEnrolled;
 	}
 
-	public void setFacultyId(int facultyId) {
-		this.facultyId = facultyId;
+	public void setEnrolled(boolean isEnrolled) {
+		this.isEnrolled = isEnrolled;
 	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Override
-	public String toString() {
-		return "FacultyRegData [id=" + id + ", faculty=" + faculty + ", user=" + user + ", marks=" + marks
-				+ ", facultyId=" + facultyId + ", email=" + email + "]";
+	
+	public void setAdmissionOfEntrant() {
+		int summOfMarks = marks.stream().mapToInt(Integer::intValue).sum();
+		isEnrolled = summOfMarks / faculty.getSubjects().size() >= 10 ? true : false;
 	}
 }

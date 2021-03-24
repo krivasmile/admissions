@@ -49,10 +49,10 @@ public class EntrantController {
 	}
 
 	@PostMapping("/registrationEntrant")
-	public String addRegistration(@RequestParam MultipartFile image, @RequestParam List<Integer> marks,
+	public String addRegistration(@RequestParam List<Integer> marks,
 			@ModelAttribute("facultyRegData") FacultyRegData frd) throws IOException {
-		frd.getUser().setImageBase64(image);
 		frd.setMarks(marks);
+		frd.setAdmissionOfEntrant();
 		facultyRegDataService.save(frd);
 		return "redirect:/home";
 	}
