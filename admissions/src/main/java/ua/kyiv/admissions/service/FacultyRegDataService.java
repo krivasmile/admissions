@@ -1,5 +1,6 @@
 package ua.kyiv.admissions.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,9 @@ public class FacultyRegDataService {
 	}
 	
 	public List<FacultyRegData> showAllEntrants(){
-		return facultyRegDataRepository.findAll();
+		List<FacultyRegData> allEntrants = facultyRegDataRepository.findAll();
+		Collections.sort(allEntrants, (f1, f2) -> f2.getFaculty().getName().compareTo(f1.getFaculty().getName()));
+		return allEntrants;
 	}
 	
 	public void deleteAllEntrants() {

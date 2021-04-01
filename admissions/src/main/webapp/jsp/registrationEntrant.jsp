@@ -32,7 +32,7 @@
 						var="currentSubject">
 						<tr>
 							<td>${currentSubject}</td>
-							<td><input type="number" name="marks"/></td>
+							<td><input type="number" name="marksFromForm"/></td>
 						</tr>
 					</c:forEach>
 

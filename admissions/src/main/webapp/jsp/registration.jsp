@@ -66,15 +66,6 @@
 								</div>
 							</spring:bind>
 
-							<%-- <spring:bind path="encodedImage">
-									<div class="group form-group ${status.error ? 'has-error' : ''}">
-									<label for="encodedImage" class="label">Select Image</label>
-										<form:input id="encodedImage" type="file" name="encodedImage" path="encodedImage"
-											></form:input>
-										<form:errors path="encodedImage"></form:errors>
-									</div>
-								</spring:bind> --%>
-
 							<div class="group">
 								<input type="submit" class="button" value="Sign Up" />
 							</div>

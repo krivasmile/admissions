@@ -1,6 +1,8 @@
 package ua.kyiv.admissions.domain;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="faculty_reg_form")
@@ -28,7 +31,7 @@ public class FacultyRegData {
 	private User user;
 	
 	@ElementCollection
-	private List<Integer> marks;
+	private Map<Subject, Integer> marks = new HashMap<Subject, Integer>();
 	
 	@Column(nullable = false, columnDefinition = "TINYINT(1)")
 	private boolean isEnrolled;
@@ -59,14 +62,6 @@ public class FacultyRegData {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	public List<Integer> getMarks() {
-		return marks;
-	}
-
-	public void setMarks(List<Integer> marks) {
-		this.marks = marks;
-	}
 	
 	public boolean getIsEnrolled() {
 		return isEnrolled;
@@ -76,8 +71,22 @@ public class FacultyRegData {
 		this.isEnrolled = isEnrolled;
 	}
 	
-	public void setAdmissionOfEntrant() {
-		int summOfMarks = marks.stream().mapToInt(Integer::intValue).sum();
+	public Map<Subject, Integer> getMarks() {
+		return marks;
+	}
+	
+	public void setMarks(Map<Subject, Integer> marks) {
+		this.marks = marks;
+	}
+	
+	public void setMarksFromList(List <Integer> listOfMarks) {
+		for (int i = 0; i < faculty.getSubjects().size(); i++) {
+			marks.put(faculty.getSubjects().get(i), listOfMarks.get(i));
+		}
+	}
+
+	public void setAdmissionForEntrant() {
+		int summOfMarks = marks.values().stream().reduce(0, Integer::sum);
 		isEnrolled = summOfMarks / faculty.getSubjects().size() >= 10 ? true : false;
 	}
 }
