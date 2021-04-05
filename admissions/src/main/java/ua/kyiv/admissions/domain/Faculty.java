@@ -55,7 +55,7 @@ public class Faculty {
 
 	@Override
 	public String toString() {
-		return "Faculty [id=" + id + ", name=" + name + ", subjects=" + subjects + "]";
+		return "Faculty [id=" + id + ", name=" + name + "]";
 	}
 
 }

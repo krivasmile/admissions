@@ -89,4 +89,10 @@ public class FacultyRegData {
 		int summOfMarks = marks.values().stream().reduce(0, Integer::sum);
 		isEnrolled = summOfMarks / faculty.getSubjects().size() >= 10 ? true : false;
 	}
+
+	@Override
+	public String toString() {
+		return "FacultyRegData [id=" + id + ", faculty=" + faculty + ", user=" + user + ", isEnrolled=" + isEnrolled
+				+ "]";
+	}
 }
