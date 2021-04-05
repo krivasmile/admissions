@@ -12,33 +12,31 @@
 <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
 <title>Sign in</title>
 <link rel="stylesheet" href="css/login.css" type="text/css">
+<link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
 </head>
 <body>
-	 <div class="container">
-
-    <form method="POST" action="${contextPath}/login" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
-
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-            <span>${message}</span>
-            <input name="email" type="text" class="form-control" placeholder="Email"
-                   autofocus="true"/>
-            <input name="password" type="password" class="form-control" placeholder="Password"/>
-            <span>${error}</span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-            <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
+		<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <form method="POST" action="${contextPath}/login" class="box">
+                    <h1>Login</h1>
+                    <p class="text-muted"> Please enter your login and password!</p>
+                    <span>${message}</span> 
+                    <input name="email" type="text" class="form-control" placeholder="Email"/>
+                    <input name="password" type="password" class="form-control" placeholder="Password"/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <span style="color:red">${error}</span> 
+                    <a class="forgot text-muted" href="${contextPath}/registration">Create an account</a> 
+                    <input type="submit" value="Login">
+                </form>
+            </div>
         </div>
-
-    </form>
     </div>
-	
+</div>
 
-	<script
-		src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
-	<script
-		src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
 
 </body>
 </html>
