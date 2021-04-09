@@ -33,7 +33,7 @@ public class UserController {
 	@GetMapping(value = { "/", "/login" })
 	public String login(Model model, String error, String logout) {
 		if (error != null)
-			model.addAttribute("error", "Your username and password is invalid.");
+			model.addAttribute("error", "Your username or password is invalid.");
 		if (logout != null)
 			model.addAttribute("message", "You have been logged out successfully.");
 		return "login";
@@ -62,7 +62,10 @@ public class UserController {
 	}
 	
 	@PostMapping(value="/imageUpload")
-	public String imageUpload(@RequestParam MultipartFile image, Principal principal) throws IOException {
+	public String imageUpload(@RequestParam MultipartFile image, Principal principal, Model model) throws IOException {
+		if (image.isEmpty()) {
+			return "redirect:/home";
+		}
 		userService.setImage(userService.findByEmail(principal.getName()), image);
 		return "redirect:/home";
 	}
