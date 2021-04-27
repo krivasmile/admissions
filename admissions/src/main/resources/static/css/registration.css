@@ -1,0 +1,6 @@
+@import url('/css/login.css');
+
+.box input[type="submit"]{
+	margin: 0px auto;
+	margin-top: 40px;
+}

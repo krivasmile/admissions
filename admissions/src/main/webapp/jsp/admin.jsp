@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -7,47 +6,32 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Admin console</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<title><spring:message code="admin.page_title"/></title>
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/admin.css" type="text/css">
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
-<style>
-.hover{
-background:#D8D8D8;
-}
-</style>
+
 <body>
+
+<!-- Navigation -->
+	<jsp:include page="navbar.jsp"></jsp:include>
+
 <div class="container">
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<form id="logoutForm" method="POST" action="${contextPath}/logout">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-		</form>
+		<h1><spring:message code="admin.welcome"/></h1>
 
-		<h2>
-			Welcome Admin |
-			<button type="button" class="btn"
-				onclick="document.forms['logoutForm'].submit()">Logout</button>
-		</h2>
-	</c:if>
-
-	<h2>Accepted <small>(average rating more than 10)</small></h2>
+	<h2><spring:message code="admin.accepted_title"/></h2>
 	<table class="table table-bordered">
 		<thead>
 			<tr style="background:#2E8B57">
-				<th>Faculty</th>
-				<th>Photo</th>
-				<th>Name</th>
-				<th>Email</th>
-				<th>Average rating</th>
-				<th>Accepted</th>
+				<th><spring:message code="admin.faculty"/></th>
+				<th><spring:message code="admin.photo"/></th>
+				<th><spring:message code="admin.name"/></th>
+				<th><spring:message code="admin.email"/></th>
+				<th><spring:message code="admin.average_raiting"/></th>
+				<th><spring:message code="admin.accepted"/></th>
 			</tr>
 		</thead>
 		<tbody id="myTable">
@@ -89,16 +73,16 @@ background:#D8D8D8;
 		</tbody>
 	</table>
 
-	<h2>Denied <small>(average rating less than 10)</small></h2>
+	<h2><spring:message code="admin.denied"/></h2>
 	<table class="table table-bordered">
 		<thead>
 			<tr style="background-color: #ff5c33">
-				<th align="center">Faculty</th>
-				<th align="center">Photo</th>
-				<th align="center">Name</th>
-				<th align="center">Email</th>
-				<th align="center">Average rating (>10 for enrolled)</th>
-				<th align="center">Accepted</th>
+				<th><spring:message code="admin.faculty"/></th>
+				<th><spring:message code="admin.photo"/></th>
+				<th><spring:message code="admin.name"/></th>
+				<th><spring:message code="admin.email"/></th>
+				<th><spring:message code="admin.average_raiting"/></th>
+				<th><spring:message code="admin.accepted"/></th>
 			</tr>
 		</thead>
 		<tbody>

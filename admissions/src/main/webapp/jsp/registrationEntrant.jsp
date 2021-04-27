@@ -1,33 +1,31 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Faculty Registration</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/registrationEntrant.css" type="text/css">
+<title><spring:message code="registrationEntrant.title"/></title>
 </head>
 <body>
+
+<!-- Navigation -->
+	<jsp:include page="navbar.jsp"></jsp:include>
+
+<!-- Page Content -->
+	 <div class="container" style="min-height: 600px">
+
+
 	<form:form method="POST" action="${contextPath}/registrationEntrant"
-				modelAttribute="facultyRegData" enctype="multipart/form-data">
+				modelAttribute="facultyRegData" enctype="multipart/form-data" class="jumbotron">
+				<h1 class="mb-5">${facultyRegData.faculty.name}</h1>
+				<h5><spring:message code="registrationEntrant.fill_marks"/>:</h5>
 				<table>
-				<c:choose>
-				<c:when test="${facultyRegData.user.imageBase64 != null}">
-				<img alt="" src="data:image/png;base64, ${facultyRegData.user.imageBase64}" width="100" height="70">
-				</c:when>
-				<c:otherwise>
-				<tr>
-					<th><img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"></th>
-						<th>You can add your photo on home page</th>
-					</tr>
-				</c:otherwise>
-				</c:choose>
-					<tr>
-						<th>To register for the faculty fill the marks:</th>
-					</tr>
-					
 					<c:forEach items="${facultyRegData.faculty.subjects}"
 						var="currentSubject">
 						<tr>
@@ -40,14 +38,20 @@
 						<td><input  type="hidden"  name="facultyId" value="${facultyRegData.faculty.id}"/></td>
 						<td><input  type="hidden" name="email" value="${facultyRegData.user.email}"/></td>
 					</tr>
-					<tr>
-						<td><input  type="submit" value="Register"/></td>
-					</tr>
-
 				</table>
+				<input type="submit" value="<spring:message code="registrationEntrant.register"/>"/>
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 
 			</form:form>
+	</div>
+
+	<!-- /.container -->
+	
+	 <!-- Footer -->
+	<jsp:include page="footer.jsp"></jsp:include>
+			
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

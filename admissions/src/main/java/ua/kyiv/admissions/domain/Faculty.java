@@ -1,5 +1,9 @@
 package ua.kyiv.admissions.domain;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Base64;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -7,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +22,11 @@ public class Faculty {
 	private Integer id;
 	
 	private Faculties name;
+	
+	private String description;
+	
+	@Lob
+	private String imageBase64;
 	
 	@ElementCollection
 	private List<Subject> subjects;
@@ -51,6 +61,22 @@ public class Faculty {
 
 	public void setSubjects(List<Subject> subjects) {
 		this.subjects = subjects;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getImageBase64() {
+		return imageBase64;
+	}
+
+	public void setImageBase64(File file) throws IOException {
+		this.imageBase64 = Base64.getEncoder().encodeToString(Files.readAllBytes(file.toPath()));
 	}
 
 	@Override

@@ -24,7 +24,8 @@ body {
 }
 
 .box input[type="text"],
-.box input[type="password"] {
+.box input[type="password"],
+.box input[type="email"] {
     border: 0;
     background: none;
     display: block;

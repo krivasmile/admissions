@@ -1,0 +1,17 @@
+.jumbotron{
+	margin: 3rem auto;
+	padding: 2rem 10rem;
+}
+
+table{
+	width:100%;
+	/* border-collapse: inherit; */
+}
+
+input{
+	margin: 20px 45%;
+}
+
+h1{
+	text-align: center;
+}

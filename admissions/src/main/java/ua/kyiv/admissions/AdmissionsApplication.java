@@ -1,5 +1,10 @@
 package ua.kyiv.admissions;
 
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +23,7 @@ import ua.kyiv.admissions.service.FacultyService;
 @ComponentScan({"ua.kyiv.admissions"})
 public class AdmissionsApplication {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, URISyntaxException {
 		SpringApplication.run(AdmissionsApplication.class, args);
 //		ConfigurableApplicationContext ctx = SpringApplication.run(AdmissionsApplication.class, args);
 //		
@@ -27,14 +32,41 @@ public class AdmissionsApplication {
 //		
 //		facultyRegDataService.deleteAllEntrants();
 //		facultyService.deleteAllFaculties();
+//		
 //		List<Subject> subjects = new ArrayList<>();
 //		for (int i = 0; i < Subject.values().length; i++) {
 //			subjects.add(Subject.values()[i]);
 //		}
-//		facultyService.save(new Faculty(Faculties.JAVA, subjects));
-//		facultyService.save(new Faculty(Faculties.PYTHON, subjects));
-//		facultyService.save(new Faculty(Faculties.ANDROID, subjects));
-//		facultyService.save(new Faculty(Faculties.RUBY, subjects));
+//		
+//		Faculty java = new Faculty();
+//		java.setName(Faculties.JAVA);
+//		java.setSubjects(subjects);
+//		java.setDescription("Java is the best");
+//		java.setImageBase64(new File("src\\main\\resources\\static\\image\\java.png"));
+//		
+//		Faculty python = new Faculty();
+//		python.setName(Faculties.PYTHON);
+//		python.setSubjects(subjects);
+//		python.setDescription("Python is the best");
+//		python.setImageBase64(new File("src\\main\\resources\\static\\image\\python.png"));
+//		
+//		Faculty android = new Faculty();
+//		android.setName(Faculties.ANDROID);
+//		android.setSubjects(subjects);
+//		android.setDescription("Android is the best");
+//		android.setImageBase64(new File("src\\main\\resources\\static\\image\\android.png"));
+//		
+//		Faculty go = new Faculty();
+//		go.setName(Faculties.GO);
+//		go.setSubjects(subjects);
+//		go.setDescription("Ruby is the best");
+//		go.setImageBase64(new File("src\\main\\resources\\static\\image\\go.png"));
+//		
+//		facultyService.save(java);
+//		facultyService.save(python);
+//		facultyService.save(android);
+//		facultyService.save(go);
+
 	}
 
 }

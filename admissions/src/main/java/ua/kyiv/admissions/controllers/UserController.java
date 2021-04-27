@@ -56,13 +56,17 @@ public class UserController {
 	@GetMapping(value = "/home")
 	public ModelAndView welcome(Principal principal) {
 			ModelAndView map = new ModelAndView("home");
+			if (principal == null) {
+				map.setViewName("403");
+				return map;
+			}
 			map.addObject("faculties", facultyService.getAllFaculties());
 			map.addObject("user", userService.findByEmail(principal.getName()));
 		return map;
 	}
 	
 	@PostMapping(value="/imageUpload")
-	public String imageUpload(@RequestParam MultipartFile image, Principal principal, Model model) throws IOException {
+	public String imageUpload(@RequestParam MultipartFile image, Principal principal) throws IOException {
 		if (image.isEmpty()) {
 			return "redirect:/home";
 		}

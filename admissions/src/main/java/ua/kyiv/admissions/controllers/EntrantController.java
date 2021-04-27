@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import ua.kyiv.admissions.domain.FacultyRegData;
 import ua.kyiv.admissions.service.FacultyRegDataService;
@@ -39,8 +40,10 @@ public class EntrantController {
 	}
 
 	@GetMapping(value = "/registrationEntrant")
-	public String registrationEntrant() {
-		return "registrationEntrant";
+	public ModelAndView registrationEntrant(@RequestParam("email") String email) {
+		ModelAndView map = new ModelAndView("registrationEntrant");
+		map.addObject("user", userService.findByEmail(email));
+		return map;
 	}
 
 	@PostMapping("/registrationEntrant")
@@ -51,4 +54,5 @@ public class EntrantController {
 		facultyRegDataService.save(frd);
 		return "redirect:/home";
 	}
+
 }
