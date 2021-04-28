@@ -136,3 +136,9 @@ a.socialIcon:hover,
 p{
 	color: grey;
 }
+
+fieldset {
+	position: fixed;
+	left: 42%;
+	top: 1%;
+}

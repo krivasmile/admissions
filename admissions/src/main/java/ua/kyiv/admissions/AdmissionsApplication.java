@@ -25,6 +25,9 @@ public class AdmissionsApplication {
 	
 	public static void main(String[] args) throws IOException, URISyntaxException {
 		SpringApplication.run(AdmissionsApplication.class, args);
+		
+		/*For test*/
+		
 //		ConfigurableApplicationContext ctx = SpringApplication.run(AdmissionsApplication.class, args);
 //		
 //		FacultyRegDataService facultyRegDataService = ctx.getBean(FacultyRegDataService.class);
