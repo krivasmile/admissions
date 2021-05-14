@@ -26,11 +26,10 @@
 				<h1 class="mb-5">${facultyRegData.faculty.name}</h1>
 				<h5><spring:message code="registrationEntrant.fill_marks"/>:</h5>
 				<table>
-					<c:forEach items="${facultyRegData.faculty.subjects}"
-						var="currentSubject">
+					<c:forEach items="${facultyRegData.faculty.subjects}" var="currentSubject">
 						<tr>
 							<td>${currentSubject}</td>
-							<td><input type="number" name="marksFromForm"/></td>
+							<td><input type="number" name="marksFromForm" min="1" max="10"/></td>
 						</tr>
 					</c:forEach>
 
@@ -42,7 +41,6 @@
 				<input type="submit" value="<spring:message code="registrationEntrant.register"/>"/>
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
-
 			</form:form>
 	</div>
 

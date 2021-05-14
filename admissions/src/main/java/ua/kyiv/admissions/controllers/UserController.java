@@ -20,10 +20,10 @@ import ua.kyiv.admissions.service.UserService;
 
 @Controller
 public class UserController {
-	
+
 	private UserService userService;
 	private FacultyService facultyService;
-	
+
 	@Autowired
 	public UserController(UserService userService, FacultyService facultyService) {
 		this.userService = userService;
@@ -38,13 +38,13 @@ public class UserController {
 			model.addAttribute("message", "You have been logged out successfully.");
 		return "login";
 	}
-	
+
 	@GetMapping(value = "/registration")
 	public String registration(Model model) {
 		model.addAttribute("newUser", new User());
 		return "registration";
 	}
-	
+
 	@PostMapping(value = "/registration")
 	public String register(@ModelAttribute("newUser") User user, BindingResult bindingResult) throws IOException {
 		if (bindingResult.hasErrors())
@@ -55,17 +55,17 @@ public class UserController {
 
 	@GetMapping(value = "/home")
 	public ModelAndView welcome(Principal principal) {
-			ModelAndView map = new ModelAndView("home");
-			if (principal == null) {
-				map.setViewName("403");
-				return map;
-			}
-			map.addObject("faculties", facultyService.getAllFaculties());
-			map.addObject("user", userService.findByEmail(principal.getName()));
+		ModelAndView map = new ModelAndView("home");
+		if (principal == null) {
+			map.setViewName("403");
+			return map;
+		}
+		map.addObject("faculties", facultyService.getAllFaculties());
+		map.addObject("user", userService.findByEmail(principal.getName()));
 		return map;
 	}
-	
-	@PostMapping(value="/imageUpload")
+
+	@PostMapping(value = "/imageUpload")
 	public String imageUpload(@RequestParam MultipartFile image, Principal principal) throws IOException {
 		if (image.isEmpty()) {
 			return "redirect:/home";

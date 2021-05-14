@@ -20,13 +20,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		var selItem = localStorage.getItem("locales");
-		$('#locales').val(selItem ? selItem : 'en');
-		$("#locales").change(function() {
+		 $("#locales").change(function() {
 			var selectedOption = $('#locales').val();
-			if (selectedOption) {
+			if (selectedOption != '') {
 				window.location.replace('?lang=' + selectedOption);
-				localStorage.setItem("locales", selectedOption);
 			}
 		});
 	});
@@ -54,6 +51,7 @@
 				<fieldset>
 					<label><spring:message code="login.choose_language" /></label> 
 					<select id="locales">
+						<option value=""></option>
 						<option value="en"><spring:message code='login.english'/></option>
 						<option value="ua"><spring:message code='login.ukrainian'/></option>
 					</select>

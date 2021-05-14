@@ -4,7 +4,6 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,14 +14,14 @@ import ua.kyiv.admissions.service.UserService;
 public class AdminController {
 	private FacultyRegDataService facultyRegDataService;
 	private UserService userService;
-	
+
 	@Autowired
 	public AdminController(FacultyRegDataService facultyRegDataService, UserService userService) {
 		this.facultyRegDataService = facultyRegDataService;
 		this.userService = userService;
 	}
 
-	@GetMapping(value ="/admin")
+	@GetMapping(value = "/admin")
 	public ModelAndView showRegisteredEntrants(Principal principal) {
 		ModelAndView map = new ModelAndView("admin");
 		if (principal == null) {

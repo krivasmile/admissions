@@ -13,11 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import ua.kyiv.admissions.security.CustomUserDetailsService;
-
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackageClasses = CustomUserDetailsService.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private UserDetailsService userDetailsService;
@@ -42,11 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-			.antMatchers("/**").permitAll()
-			.antMatchers("/css/**").permitAll()
-			.antMatchers("/home").access("hasRole('ROLE_USER')")
+			.antMatchers("/", "/css/**", "/vendor/**", "/registration").permitAll()
+			.antMatchers("/home", "/registrationEntrant").access("hasRole('ROLE_USER')")
 			.antMatchers("/admin").access("hasRole('ROLE_ADMIN')")
-			.antMatchers("/registrationEntrant").access("hasRole('ROLE_USER')")
 			.anyRequest()
 			.authenticated()
 			.and()
@@ -58,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.logout()
 			.logoutSuccessUrl("/login?logout")
+			.permitAll()
 			.and()
 			.exceptionHandling()
 			.accessDeniedPage("/403")
